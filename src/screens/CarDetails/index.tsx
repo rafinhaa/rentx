@@ -2,6 +2,7 @@ import React from "react";
 import BackButton from "../../components/BackButton";
 import ImageSlider from "../../components/ImageSlider";
 import Accessory from "../../components/Accessory";
+import Button from "../../components/Button";
 
 import SpeedSvg from "../../assets/speed.svg";
 import AccelerationSvg from "../../assets/acceleration.svg";
@@ -24,6 +25,7 @@ import {
   Period,
   About,
   Accessories,
+  Footer,
 } from "./styles";
 
 const CarDetails: React.FC = () => {
@@ -64,6 +66,9 @@ const CarDetails: React.FC = () => {
           eget tincidunt nisl nisi eget.
         </About>
       </Content>
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   );
 };
