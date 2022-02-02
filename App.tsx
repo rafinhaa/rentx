@@ -11,13 +11,9 @@ import {
 } from "@expo-google-fonts/archivo";
 import { ThemeProvider } from "styled-components/native";
 
-import Home from "./src/screens/Home";
-import CarDetails from "./src/screens/CarDetails";
-import Scheduling from "./src/screens/Scheduling";
-import SchedulingDetails from "./src/screens/SchedulingDetails";
-import SchedulingComplete from "./src/screens/SchedulingComplete";
 import AppLoading from "expo-app-loading";
 import theme from "./src/styles/theme";
+import Routes from "./src/routes";
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -32,7 +28,7 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedulingComplete />
+      <Routes />
     </ThemeProvider>
   );
 };

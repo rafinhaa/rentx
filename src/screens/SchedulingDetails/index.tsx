@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import ImageSlider from "../../components/ImageSlider";
 import Accessory from "../../components/Accessory";
 import Button from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 import SpeedSvg from "../../assets/speed.svg";
 import AccelerationSvg from "../../assets/acceleration.svg";
@@ -42,6 +43,10 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 const SchedulingDetails: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+  function handleConfirmRental() {
+    navigation.navigate("SchedulingComplete");
+  }
   return (
     <Container>
       <Header>
@@ -104,7 +109,11 @@ const SchedulingDetails: React.FC = () => {
         </RentalPrice>
       </Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Alugar agora"
+          color={theme.colors.success}
+          onPress={handleConfirmRental}
+        />
       </Footer>
     </Container>
   );

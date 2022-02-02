@@ -3,6 +3,7 @@ import BackButton from "../../components/BackButton";
 import { useTheme } from "styled-components";
 import ArrowSvg from "../../assets/arrow.svg";
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   Container,
@@ -21,6 +22,10 @@ import Calendar from "../../components/Calendar";
 
 const Scheduling: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+  function handleConfirmRental() {
+    navigation.navigate("SchedulingDetails");
+  }
   return (
     <Container>
       <Header>
@@ -51,7 +56,7 @@ const Scheduling: React.FC = () => {
         <Calendar></Calendar>
       </Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button title="Confirmar" onPress={handleConfirmRental} />
       </Footer>
     </Container>
   );
