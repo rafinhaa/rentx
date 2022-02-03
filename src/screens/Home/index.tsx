@@ -6,12 +6,19 @@ import { useNavigation } from "@react-navigation/native";
 import api from "../../services/api";
 import { CarDTO } from "../../dtos/CarDTO";
 import Load from "../../components/Load";
+import { AppRoutesParamList } from "../../routes/stack.routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import Logo from "../../assets/logo.svg";
 import Car from "../../components/Car";
 
+type HomeNavigationProps = NativeStackNavigationProp<
+  AppRoutesParamList,
+  "CarDetails"
+>;
+
 const Home: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeNavigationProps>();
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
 

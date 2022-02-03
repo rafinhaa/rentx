@@ -5,13 +5,9 @@ import Accessory from "../../components/Accessory";
 import Button from "../../components/Button";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { CarDTO } from "../../dtos/CarDTO";
-
-import SpeedSvg from "../../assets/speed.svg";
-import AccelerationSvg from "../../assets/acceleration.svg";
-import ForceSvg from "../../assets/force.svg";
-import GasolineSvg from "../../assets/gasoline.svg";
-import ExchangeSvg from "../../assets/exchange.svg";
-import PeopleSvg from "../../assets/people.svg";
+import { AppRoutesParamList } from "../../routes/stack.routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
 
 import {
   Container,
@@ -34,8 +30,13 @@ interface Params {
   car: CarDTO;
 }
 
+type CarDetailsNavigationProps = NativeStackNavigationProp<
+  AppRoutesParamList,
+  "Scheduling"
+>;
+
 const CarDetails: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<CarDetailsNavigationProps>();
   const { car } = useRoute().params as Params;
 
   function handleConfirmRental() {
@@ -67,7 +68,11 @@ const CarDetails: React.FC = () => {
         </Details>
         <Accessories>
           {car.accessories.map((accessory, index) => (
-            <Accessory key={index} name={accessory.name} icon={SpeedSvg} />
+            <Accessory
+              key={index}
+              name={accessory.name}
+              icon={getAccessoryIcons(accessory.type)}
+            />
           ))}
         </Accessories>
         <About>{car.about}</About>
