@@ -12,20 +12,11 @@ import Car from "../../components/Car";
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
-  const carData = {
-    brand: "Audi",
-    name: "RS 5 TS",
-    rent: {
-      period: "dia",
-      price: "1.500,00",
-    },
-    thumbnail:
-      "https://production.autoforce.com/uploads/version/profile_image/5505/model_main_comprar-prestige-plus-40-tfsi-s-tronic_7243435b0b.png",
-  };
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
-  function handleCarDetails() {
-    navigation.navigate("CarDetails");
+
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate("CarDetails", { car });
   }
 
   useEffect(() => {
@@ -63,7 +54,7 @@ const Home: React.FC = () => {
           data={cars}
           keyExtractor={(car) => car.id}
           renderItem={({ item }) => (
-            <Car data={item} onPress={handleCarDetails} />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}
