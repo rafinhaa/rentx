@@ -40,7 +40,7 @@ const CarDetails: React.FC = () => {
   const { car } = useRoute().params as Params;
 
   function handleConfirmRental() {
-    navigation.navigate("Scheduling");
+    navigation.navigate("Scheduling", { car });
   }
 
   function handleBack() {
