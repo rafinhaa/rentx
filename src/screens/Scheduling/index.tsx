@@ -31,7 +31,6 @@ import {
 import { format } from "date-fns/esm";
 import { getPlataformDate } from "../../utils/getPlataformDate";
 import { Alert } from "react-native";
-import { useEffect } from "react";
 
 interface Params {
   car: CarDTO;
