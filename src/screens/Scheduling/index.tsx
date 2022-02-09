@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackButton from "../../components/BackButton";
 import { useTheme } from "styled-components";
 import ArrowSvg from "../../assets/arrow.svg";
@@ -61,10 +61,6 @@ const Scheduling: React.FC = () => {
   );
 
   function handleConfirmRental() {
-    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
-      Alert.alert("Aviso", "Selecione um período para a locação");
-      return;
-    }
     navigation.navigate("SchedulingDetails", {
       car,
       dates: Object.keys(markedDates),
@@ -97,6 +93,7 @@ const Scheduling: React.FC = () => {
   function goBack() {
     navigation.goBack();
   }
+
   return (
     <Container>
       <Header>
@@ -104,7 +101,7 @@ const Scheduling: React.FC = () => {
         <BackButton onPress={goBack} color={theme.colors.shape} />
         <Title>
           Escolha uma {"\n"}
-          data de inicío {"\n"}e fim do aluguel
+          data de início {"\n"}e fim do aluguel
         </Title>
 
         <RentalPeriod>
@@ -127,7 +124,11 @@ const Scheduling: React.FC = () => {
         <Calendar onDayPress={handleChangeDate} markedDates={markedDates} />
       </Content>
       <Footer>
-        <Button title="Confirmar" onPress={handleConfirmRental} />
+        <Button
+          title="Confirmar"
+          onPress={handleConfirmRental}
+          enabled={!!rentalPeriod.startFormatted}
+        />
       </Footer>
     </Container>
   );
