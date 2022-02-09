@@ -9,6 +9,7 @@ import { useTheme } from "styled-components/native";
 import { AppRoutesParamList } from "../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Load from "../../components/Load";
+import { AntDesign } from "@expo/vector-icons";
 
 type MyCarsDetailsNavigationProps = NativeStackNavigationProp<
   AppRoutesParamList,
@@ -25,6 +26,11 @@ import {
   AppointmentsTitle,
   AppointmentsQuantity,
   CarsList,
+  CarWrapper,
+  CarFooter,
+  CarFooterTitle,
+  CarFooterPeriod,
+  CarFooterDate,
 } from "./styles";
 import Car from "../../components/Car";
 
@@ -32,6 +38,8 @@ export interface MyCarsProps {
   id: string;
   user_id: string;
   car: CarDTO;
+  startDate: string;
+  endDate: string;
 }
 
 const MyCars: React.FC = () => {
@@ -76,7 +84,7 @@ const MyCars: React.FC = () => {
       <Content>
         <Appointments>
           <AppointmentsTitle>Agendamentos feitos</AppointmentsTitle>
-          <AppointmentsQuantity>0</AppointmentsQuantity>
+          <AppointmentsQuantity>{cars.length}</AppointmentsQuantity>
         </Appointments>
         {loading ? (
           <Load />
@@ -84,7 +92,24 @@ const MyCars: React.FC = () => {
           <CarsList
             data={cars}
             keyExtractor={(car) => String(car.id)}
-            renderItem={({ item }) => <Car data={item.car} />}
+            renderItem={({ item }) => (
+              <CarWrapper>
+                <Car data={item.car} />
+                <CarFooter>
+                  <CarFooterTitle>Período</CarFooterTitle>
+                  <CarFooterPeriod>
+                    <CarFooterDate>{item.startDate}</CarFooterDate>
+                    <AntDesign
+                      name="arrowright"
+                      size={24}
+                      color={theme.colors.text}
+                      style={{ marginHorizontal: 10 }}
+                    />
+                    <CarFooterDate>{item.endDate}</CarFooterDate>
+                  </CarFooterPeriod>
+                </CarFooter>
+              </CarWrapper>
+            )}
           />
         )}
       </Content>
