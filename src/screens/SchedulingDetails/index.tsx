@@ -67,8 +67,10 @@ const SchedulingDetails: React.FC = () => {
   const { car, dates } = useRoute().params as Params;
   const navigation = useNavigation<SchedulingDetailsNavigationProps>();
   const rentalTotal = Number(dates.length * car.rent.price);
+  const [loading, setLoading] = useState(false);
 
   async function handleConfirmRental() {
+    setLoading(true);
     const schedulesByCar = await api(`/schedules_bycars/${car.id}`);
     const unavailable_dates = [
       ...schedulesByCar.data.unavailable_dates,
@@ -88,7 +90,14 @@ const SchedulingDetails: React.FC = () => {
     api
       .put(`/schedules_bycars/${car.id}`, { id: car.id, unavailable_dates })
       .then(() => navigation.navigate("SchedulingComplete"))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setLoading(false);
+        Alert.alert(
+          "Erro ao agendar",
+          "Ocorreu um erro ao agendar o carro, tente novamente mais tarde."
+        );
+        console.log(error);
+      });
   }
 
   function handleGoBack() {
@@ -168,6 +177,8 @@ const SchedulingDetails: React.FC = () => {
           title="Alugar agora"
           color={theme.colors.success}
           onPress={handleConfirmRental}
+          enabled={!loading}
+          loading={loading}
         />
       </Footer>
     </Container>
