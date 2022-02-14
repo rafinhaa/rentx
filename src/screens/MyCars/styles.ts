@@ -62,7 +62,7 @@ export const AppointmentsQuantity = styled.Text`
 export const CarsList = styled(
   FlatList as new (props: FlatListProps<MyCarsProps>) => FlatList<MyCarsProps>
 ).attrs({
-  showVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
 })``;
 
 export const CarWrapper = styled.View`
