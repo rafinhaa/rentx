@@ -1,25 +1,36 @@
 import React from "react";
 
-import { Button, StyleSheet } from "react-native";
+import { Button, StyleSheet, Dimensions } from "react-native";
 
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
+  withTiming,
+  Easing,
 } from "react-native-reanimated";
 
 import { Container } from "./styles";
+
+const WIDTH = Dimensions.get("window").width;
 
 const Splash: React.FC = () => {
   const animation = useSharedValue(0);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: animation.value }],
+      transform: [
+        {
+          translateX: withTiming(animation.value, {
+            duration: 1000,
+            easing: Easing.bounce,
+          }),
+        },
+      ],
     };
   });
 
   function handleAnimatedPosition() {
-    animation.value++;
+    animation.value = Math.random() * (WIDTH - 100);
   }
 
   return (
