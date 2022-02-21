@@ -1,24 +1,34 @@
 import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
-import { Button, StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import BrandSvg from "../../assets/brand.svg";
 import LogoSvg from "../../assets/logo.svg";
+
+import { AppRoutesParamList } from "../../routes/stack.routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  Easing,
   interpolate,
   Extrapolate,
+  runOnJS,
 } from "react-native-reanimated";
 
 import { Container } from "./styles";
 
 const WIDTH = Dimensions.get("window").width;
 
+type SplashNavigationProps = NativeStackNavigationProp<
+  AppRoutesParamList,
+  "Home"
+>;
+
 const Splash: React.FC = () => {
   const splashAnimation = useSharedValue(0);
+  const navigation = useNavigation<SplashNavigationProps>();
 
   const brandStyle = useAnimatedStyle(() => {
     return {
@@ -28,7 +38,7 @@ const Splash: React.FC = () => {
           translateX: interpolate(
             splashAnimation.value,
             [0, 50],
-            [0, -WIDTH],
+            [0, -50],
             Extrapolate.CLAMP
           ),
         },
@@ -44,7 +54,7 @@ const Splash: React.FC = () => {
           translateX: interpolate(
             splashAnimation.value,
             [0, 50],
-            [-WIDTH, 0],
+            [-50, 0],
             Extrapolate.CLAMP
           ),
         },
@@ -52,8 +62,15 @@ const Splash: React.FC = () => {
     };
   });
 
+  async function startApp() {
+    navigation.navigate("Home");
+  }
+
   useEffect(() => {
-    splashAnimation.value = withTiming(50, { duration: 5000 });
+    splashAnimation.value = withTiming(50, { duration: 2000 }, () => {
+      "worklet";
+      runOnJS(startApp)();
+    });
   }, []);
 
   return (
@@ -69,11 +86,3 @@ const Splash: React.FC = () => {
 };
 
 export default Splash;
-
-const styles = StyleSheet.create({
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: "red",
-  },
-});
