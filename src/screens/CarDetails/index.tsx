@@ -8,7 +8,9 @@ import { CarDTO } from "../../dtos/CarDTO";
 import { AppRoutesParamList } from "../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
-import { StatusBar } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { useTheme } from "styled-components/native";
 
 import Animated, {
   useSharedValue,
@@ -22,7 +24,6 @@ import {
   Container,
   Header,
   CarImages,
-  Content,
   Details,
   Description,
   Brand,
@@ -48,6 +49,7 @@ const CarDetails: React.FC = () => {
   const navigation = useNavigation<CarDetailsNavigationProps>();
   const { car } = useRoute().params as Params;
   const scrollY = useSharedValue(0);
+  const { colors } = useTheme();
 
   const scrollHandler = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
@@ -61,6 +63,12 @@ const CarDetails: React.FC = () => {
         [200, 30],
         Extrapolate.CLAMP
       ),
+    };
+  });
+
+  const sliderCarsStyleAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(scrollY.value, [0, 150], [1, 0], Extrapolate.CLAMP),
     };
   });
 
@@ -79,15 +87,31 @@ const CarDetails: React.FC = () => {
         translucent
         backgroundColor="transparent"
       />
-      <Animated.View style={[headerStyleAnimation]}>
+      <Animated.View
+        style={[
+          headerStyleAnimation,
+          styles.header,
+          { backgroundColor: colors.background_secondary },
+        ]}
+      >
         <Header>
           <BackButton onPress={handleBack} />
         </Header>
         <CarImages>
-          <ImageSlider imagesUrl={car.photos} />
+          <Animated.View style={sliderCarsStyleAnimation}>
+            <ImageSlider imagesUrl={car.photos} />
+          </Animated.View>
         </CarImages>
       </Animated.View>
-      <Content onScroll={scrollHandler}>
+      <Animated.ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingTop: getStatusBarHeight() + 160,
+        }}
+        showsVerticalScrollIndicator={false}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+      >
         <Details>
           <Description>
             <Brand>{car.brand}</Brand>
@@ -112,7 +136,7 @@ const CarDetails: React.FC = () => {
         <About>{car.about}</About>
         <About>{car.about}</About>
         <About>{car.about}</About>
-      </Content>
+      </Animated.ScrollView>
       <Footer>
         <Button
           title="Escolher período do aluguel"
@@ -124,3 +148,11 @@ const CarDetails: React.FC = () => {
 };
 
 export default CarDetails;
+
+const styles = StyleSheet.create({
+  header: {
+    position: "absolute",
+    overflow: "hidden",
+    zIndex: 1,
+  },
+});
