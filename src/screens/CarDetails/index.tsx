@@ -8,6 +8,15 @@ import { CarDTO } from "../../dtos/CarDTO";
 import { AppRoutesParamList } from "../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
+import { StatusBar } from "react-native";
+
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from "react-native-reanimated";
 
 import {
   Container,
@@ -38,6 +47,22 @@ type CarDetailsNavigationProps = NativeStackNavigationProp<
 const CarDetails: React.FC = () => {
   const navigation = useNavigation<CarDetailsNavigationProps>();
   const { car } = useRoute().params as Params;
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollY.value = event.contentOffset.y;
+  });
+
+  const headerStyleAnimation = useAnimatedStyle(() => {
+    return {
+      height: interpolate(
+        scrollY.value,
+        [0, 200],
+        [200, 30],
+        Extrapolate.CLAMP
+      ),
+    };
+  });
 
   function handleConfirmRental() {
     navigation.navigate("Scheduling", { car });
@@ -49,13 +74,20 @@ const CarDetails: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <BackButton onPress={handleBack} />
-      </Header>
-      <CarImages>
-        <ImageSlider imagesUrl={car.photos} />
-      </CarImages>
-      <Content>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
+      <Animated.View style={[headerStyleAnimation]}>
+        <Header>
+          <BackButton onPress={handleBack} />
+        </Header>
+        <CarImages>
+          <ImageSlider imagesUrl={car.photos} />
+        </CarImages>
+      </Animated.View>
+      <Content onScroll={scrollHandler}>
         <Details>
           <Description>
             <Brand>{car.brand}</Brand>
@@ -75,6 +107,10 @@ const CarDetails: React.FC = () => {
             />
           ))}
         </Accessories>
+        <About>{car.about}</About>
+        <About>{car.about}</About>
+        <About>{car.about}</About>
+        <About>{car.about}</About>
         <About>{car.about}</About>
       </Content>
       <Footer>
