@@ -5,7 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/api";
 import { CarDTO } from "../../dtos/CarDTO";
-import Load from "../../components/Load";
+import LoaderAnimated from "../../components/LoaderAnimated";
 import { AppRoutesParamList } from "../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
@@ -104,7 +104,7 @@ const Home: React.FC = () => {
         </HeaderContent>
       </Header>
       {loading ? (
-        <Load />
+        <LoaderAnimated />
       ) : (
         <CarList
           data={cars}

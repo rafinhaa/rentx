@@ -8,7 +8,7 @@ import api from "../../services/api";
 import { useTheme } from "styled-components/native";
 import { AppRoutesParamList } from "../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Load from "../../components/Load";
+import LoaderAnimated from "../../components/LoaderAnimated";
 import { AntDesign } from "@expo/vector-icons";
 
 type MyCarsDetailsNavigationProps = NativeStackNavigationProp<
@@ -87,7 +87,7 @@ const MyCars: React.FC = () => {
           <AppointmentsQuantity>{cars.length}</AppointmentsQuantity>
         </Appointments>
         {loading ? (
-          <Load />
+          <LoaderAnimated />
         ) : (
           <CarsList
             data={cars}
