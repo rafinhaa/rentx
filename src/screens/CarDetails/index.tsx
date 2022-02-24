@@ -55,12 +55,14 @@ const CarDetails: React.FC = () => {
     scrollY.value = event.contentOffset.y;
   });
 
+  const statusBarHeight = getStatusBarHeight();
+
   const headerStyleAnimation = useAnimatedStyle(() => {
     return {
       height: interpolate(
         scrollY.value,
         [0, 200],
-        [200, 30],
+        [200, statusBarHeight + 50],
         Extrapolate.CLAMP
       ),
     };
