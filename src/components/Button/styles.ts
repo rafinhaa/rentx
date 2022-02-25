@@ -8,6 +8,10 @@ interface ButtonProps extends RectButtonProps {
   loading?: boolean;
 }
 
+interface ButtonTextProps {
+  light: boolean;
+}
+
 export const Container = styled(RectButton)<ButtonProps>`
   width: 100%;
   padding: 19px;
@@ -24,10 +28,11 @@ export const Container = styled(RectButton)<ButtonProps>`
     `}
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<ButtonTextProps>`
   font-family: ${({ theme }) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
-  color: ${({ theme }) => theme.colors.shape};
+  color: ${({ theme: { colors }, light }) =>
+    light ? colors.header : colors.shape};
 `;
 
 export const Loader = styled(ActivityIndicator).attrs(({ theme }) => ({
