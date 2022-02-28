@@ -1,11 +1,12 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 
 import BackButton from "../../../components/BackButton";
 
 import Bullet from "../../../components/Bullet";
 import InputPassword from "../../../components/InputPassword";
 import Button from "../../../components/Button";
+import { AppRoutesParamList } from "src/routes/stack.routes";
 
 import {
   Container,
@@ -17,19 +18,38 @@ import {
   FormTitle,
 } from "./styles";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useTheme } from "styled-components/native";
 
+type ScreenParams = RouteProp<AppRoutesParamList, "SignUpSecondStep">;
+
 export const SecondeStep: React.FC = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const {
+    params: { user },
+  } = useRoute<ScreenParams>();
 
   const handleGoBack = () => {
     navigation.goBack();
   };
+
+  const handleRegister = () => {
+    if (!password || !confirmPassword) {
+      return Alert.alert("Atenção", "Preencha todos os campos");
+    }
+    if (password !== confirmPassword) {
+      return Alert.alert("Atenção", "As senhas não conferem");
+    }
+    //TODO: Salvar usuário na api
+  };
+
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -49,11 +69,15 @@ export const SecondeStep: React.FC = () => {
               iconName="lock"
               placeholder="Senha"
               keyboardType="email-address"
+              onChangeText={setPassword}
+              value={password}
             />
             <InputPassword
               iconName="lock"
               placeholder="Repetir senha"
               keyboardType="numeric"
+              onChangeText={setConfirmPassword}
+              value={confirmPassword}
             />
           </Form>
           <Button title="Cadastrar" color={colors.success} />

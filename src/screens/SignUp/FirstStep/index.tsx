@@ -1,8 +1,9 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 
 import { AppRoutesParamList } from "../../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import * as Yup from "yup";
 
 import BackButton from "../../../components/BackButton";
 import Bullet from "../../../components/Bullet";
@@ -19,6 +20,7 @@ import {
   FormTitle,
 } from "./styles";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -31,13 +33,34 @@ type SignUpNavigationProps = NativeStackNavigationProp<
 
 export const FirstStep: React.FC = () => {
   const navigation = useNavigation<SignUpNavigationProps>();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [cnh, setCnh] = useState("");
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  const handleSecondStep = () => {
-    navigation.navigate("SignUpSecondStep");
+  const handleSecondStep = async () => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required("Nome obrigatório"),
+        email: Yup.string()
+          .email("Insira um e-mail válido")
+          .required("E-mail obrigatório"),
+        cnh: Yup.string().required("CNH obrigatório"),
+      });
+
+      const data = { name, email, cnh };
+      await schema.validate(data);
+      navigation.navigate("SignUpSecondStep", { user: data });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Erro", error.message);
+      } else {
+        Alert.alert("Erro", "Ocorreu um erro ao criar a conta");
+      }
+    }
   };
 
   return (
@@ -55,16 +78,26 @@ export const FirstStep: React.FC = () => {
           <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
           <Form>
             <FormTitle>1. Dados</FormTitle>
-            <Input iconName="user" placeholder="Nome" />
+            <Input
+              iconName="user"
+              placeholder="Nome"
+              onChangeText={setName}
+              value={name}
+            />
             <Input
               iconName="mail"
               placeholder="E-mail"
               keyboardType="email-address"
+              autoCapitalize="none"
+              onChangeText={setEmail}
+              value={email}
             />
             <Input
               iconName="credit-card"
               placeholder="CNH"
               keyboardType="numeric"
+              onChangeText={setCnh}
+              value={cnh}
             />
           </Form>
           <Button title="Próximo" onPress={handleSecondStep} />

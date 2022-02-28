@@ -27,7 +27,13 @@ export type AppRoutesParamList = {
   SchedulingComplete: undefined;
   MyCars: undefined;
   SignUpFirstStep: undefined;
-  SignUpSecondStep: undefined;
+  SignUpSecondStep: {
+    user: {
+      name: string;
+      email: string;
+      cnh: string;
+    };
+  };
 };
 
 export function StackRoutes() {
