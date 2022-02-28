@@ -19,7 +19,7 @@ import { Container, Header, Form, Title, SubTitle, Footer } from "./styles";
 
 type SignInNavigationProps = NativeStackNavigationProp<
   AppRoutesParamList,
-  "SignUp"
+  "SignUpFirstStep"
 >;
 
 const SignIn: React.FC = () => {
@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
   };
 
   const handleSignUp = () => {
-    navigation.navigate("SignUp");
+    navigation.navigate("SignUpFirstStep");
   };
 
   return (

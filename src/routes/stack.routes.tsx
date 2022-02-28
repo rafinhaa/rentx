@@ -25,13 +25,13 @@ export type AppRoutesParamList = {
   };
   SchedulingComplete: undefined;
   MyCars: undefined;
-  SignUp: undefined;
+  SignUpFirstStep: undefined;
 };
 
 export function StackRoutes() {
   return (
     <Navigator
-      initialRouteName="SignUpFirstStep"
+      initialRouteName="SignIn"
       screenOptions={{
         headerShown: false,
       }}
