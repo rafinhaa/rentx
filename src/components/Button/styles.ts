@@ -26,6 +26,7 @@ export const Container = styled(RectButton)<ButtonProps>`
     css`
       opacity: 0.5;
     `}
+  margin-bottom: 8px;
 `;
 
 export const Title = styled.Text<ButtonTextProps>`

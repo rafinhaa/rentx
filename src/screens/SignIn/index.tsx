@@ -2,8 +2,9 @@ import React from "react";
 import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 
-import { Container, Header, Title, SubTitle, Footer } from "./styles";
+import { Container, Header, Form, Title, SubTitle, Footer } from "./styles";
 
 const SignIn: React.FC = () => {
   const { colors } = useTheme();
@@ -20,6 +21,10 @@ const SignIn: React.FC = () => {
           Faça seu login para começar{"\n"}uma experiência incrível.
         </SubTitle>
       </Header>
+      <Form>
+        <Input />
+        <Input />
+      </Form>
       <Footer>
         <Button
           title="Login"
