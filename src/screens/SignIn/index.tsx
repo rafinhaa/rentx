@@ -11,11 +11,20 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import InputPassword from "../../components/InputPassword";
 import * as Yup from "yup";
+import { useNavigation } from "@react-navigation/native";
+import { AppRoutesParamList } from "../../routes/stack.routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { Container, Header, Form, Title, SubTitle, Footer } from "./styles";
 
+type SignInNavigationProps = NativeStackNavigationProp<
+  AppRoutesParamList,
+  "SignUp"
+>;
+
 const SignIn: React.FC = () => {
   const { colors } = useTheme();
+  const navigation = useNavigation<SignInNavigationProps>();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,6 +45,10 @@ const SignIn: React.FC = () => {
         Alert.alert("Erro", "Ocorreu um erro ao fazer login");
       }
     }
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate("SignUp");
   };
 
   return (
@@ -79,7 +92,7 @@ const SignIn: React.FC = () => {
             />
             <Button
               title="Criar conta gratuita"
-              onPress={() => {}}
+              onPress={handleSignUp}
               enabled={true}
               loading={false}
               color={colors.background_secondary}

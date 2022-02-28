@@ -8,6 +8,7 @@ import SchedulingComplete from "../../src/screens/SchedulingComplete";
 import MyCars from "../../src/screens/MyCars";
 import Splash from "../screens/Splash";
 import SignIn from "../screens/SignIn";
+import SignUpFirstStep from "../screens/SignUp/FirstStep";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CarDTO } from "../dtos/CarDTO";
@@ -24,16 +25,18 @@ export type AppRoutesParamList = {
   };
   SchedulingComplete: undefined;
   MyCars: undefined;
+  SignUp: undefined;
 };
 
 export function StackRoutes() {
   return (
     <Navigator
-      initialRouteName="SignIn"
+      initialRouteName="SignUpFirstStep"
       screenOptions={{
         headerShown: false,
       }}
     >
+      <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
       <Screen name="SignIn" component={SignIn} />
       <Screen name="Splash" component={Splash} />
       <Screen
