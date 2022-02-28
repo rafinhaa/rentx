@@ -1,9 +1,9 @@
+import { BorderlessButton } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex-direction: row;
-  margin-bottom: 8px;
 `;
 
 export const IconContainer = styled.View`
@@ -25,3 +25,5 @@ export const InputText = styled.TextInput`
   background-color: ${({ theme: { colors } }) => colors.background_secondary};
   color: ${({ theme: { colors } }) => colors.text};
 `;
+
+export const ChangePasswordVisibilityButton = styled(BorderlessButton)``;
