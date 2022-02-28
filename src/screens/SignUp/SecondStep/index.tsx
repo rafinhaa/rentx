@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
+import { useTheme } from "styled-components/native";
+import { AppRoutesParamList } from "src/routes/stack.routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import BackButton from "../../../components/BackButton";
-
 import Bullet from "../../../components/Bullet";
 import InputPassword from "../../../components/InputPassword";
 import Button from "../../../components/Button";
-import { AppRoutesParamList } from "src/routes/stack.routes";
+
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 import {
   Container,
@@ -17,18 +25,12 @@ import {
   Form,
   FormTitle,
 } from "./styles";
-import {
-  Alert,
-  Keyboard,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-} from "react-native";
-import { useTheme } from "styled-components/native";
 
 type ScreenParams = RouteProp<AppRoutesParamList, "SignUpSecondStep">;
+type navigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
 export const SecondeStep: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<navigationProps>();
   const { colors } = useTheme();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -48,6 +50,14 @@ export const SecondeStep: React.FC = () => {
       return Alert.alert("Atenção", "As senhas não conferem");
     }
     //TODO: Salvar usuário na api
+
+    navigation.navigate("Confirmation", {
+      screenProps: {
+        title: "Conta criada!",
+        message: `Agora é só fazer login\ne aproveitar`,
+        nextScreenRoute: "SignIn",
+      },
+    });
   };
 
   return (
@@ -68,19 +78,21 @@ export const SecondeStep: React.FC = () => {
             <InputPassword
               iconName="lock"
               placeholder="Senha"
-              keyboardType="email-address"
               onChangeText={setPassword}
               value={password}
             />
             <InputPassword
               iconName="lock"
               placeholder="Repetir senha"
-              keyboardType="numeric"
               onChangeText={setConfirmPassword}
               value={confirmPassword}
             />
           </Form>
-          <Button title="Cadastrar" color={colors.success} />
+          <Button
+            title="Cadastrar"
+            onPress={handleRegister}
+            color={colors.success}
+          />
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RouteProp, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { AppRoutesParamList } from "../../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -26,10 +26,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-type SignUpNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "SignUpSecondStep"
->;
+type SignUpNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
 export const FirstStep: React.FC = () => {
   const navigation = useNavigation<SignUpNavigationProps>();

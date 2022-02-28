@@ -4,7 +4,7 @@ import Home from "../../src/screens/Home";
 import CarDetails from "../../src/screens/CarDetails";
 import Scheduling from "../../src/screens/Scheduling";
 import SchedulingDetails from "../../src/screens/SchedulingDetails";
-import SchedulingComplete from "../../src/screens/SchedulingComplete";
+import Confirmation from "../screens/Confirmation";
 import MyCars from "../../src/screens/MyCars";
 import Splash from "../screens/Splash";
 import SignIn from "../screens/SignIn";
@@ -24,8 +24,15 @@ export type AppRoutesParamList = {
     car: CarDTO;
     dates: {};
   };
-  SchedulingComplete: undefined;
+  Confirmation: {
+    screenProps: {
+      title: string;
+      message: string;
+      nextScreenRoute: keyof AppRoutesParamList;
+    };
+  };
   MyCars: undefined;
+  SignIn: undefined;
   SignUpFirstStep: undefined;
   SignUpSecondStep: {
     user: {
@@ -58,7 +65,7 @@ export function StackRoutes() {
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Scheduling" component={Scheduling} />
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
-      <Screen name="SchedulingComplete" component={SchedulingComplete} />
+      <Screen name="Confirmation" component={Confirmation} />
       <Screen name="MyCars" component={MyCars} />
     </Navigator>
   );

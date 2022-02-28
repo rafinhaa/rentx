@@ -49,10 +49,8 @@ interface Params {
   dates: string[];
 }
 
-type SchedulingDetailsNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "SchedulingComplete"
->;
+type SchedulingDetailsNavigationProps =
+  NativeStackNavigationProp<AppRoutesParamList>;
 
 interface RentalPeriod {
   start: string;
@@ -89,7 +87,15 @@ const SchedulingDetails: React.FC = () => {
 
     api
       .put(`/schedules_bycars/${car.id}`, { id: car.id, unavailable_dates })
-      .then(() => navigation.navigate("SchedulingComplete"))
+      .then(() =>
+        navigation.navigate("Confirmation", {
+          screenProps: {
+            title: "Carro alugado!",
+            message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel`,
+            nextScreenRoute: "Home",
+          },
+        })
+      )
       .catch((error) => {
         setLoading(false);
         Alert.alert(
