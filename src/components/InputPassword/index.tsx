@@ -18,7 +18,7 @@ interface InputProps extends TextInputProps {
 
 const InputPassword: React.FC<InputProps> = ({ iconName, value, ...rest }) => {
   const { colors } = useTheme();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 

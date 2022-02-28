@@ -9,6 +9,7 @@ import MyCars from "../../src/screens/MyCars";
 import Splash from "../screens/Splash";
 import SignIn from "../screens/SignIn";
 import SignUpFirstStep from "../screens/SignUp/FirstStep";
+import SignUpSecondStep, { SecondeStep } from "../screens/SignUp/SecondStep";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CarDTO } from "../dtos/CarDTO";
@@ -26,6 +27,7 @@ export type AppRoutesParamList = {
   SchedulingComplete: undefined;
   MyCars: undefined;
   SignUpFirstStep: undefined;
+  SignUpSecondStep: undefined;
 };
 
 export function StackRoutes() {
@@ -37,6 +39,7 @@ export function StackRoutes() {
       }}
     >
       <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
+      <Screen name="SignUpSecondStep" component={SecondeStep} />
       <Screen name="SignIn" component={SignIn} />
       <Screen name="Splash" component={Splash} />
       <Screen

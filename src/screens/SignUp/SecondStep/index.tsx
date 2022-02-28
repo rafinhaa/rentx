@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { AppRoutesParamList } from "../../../routes/stack.routes";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
 import BackButton from "../../../components/BackButton";
+
 import Bullet from "../../../components/Bullet";
-import Input from "../../../components/Input";
+import InputPassword from "../../../components/InputPassword";
 import Button from "../../../components/Button";
 
 import {
@@ -23,23 +21,15 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useTheme } from "styled-components/native";
 
-type SignUpNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "SignUpSecondStep"
->;
-
-export const FirstStep: React.FC = () => {
-  const navigation = useNavigation<SignUpNavigationProps>();
+export const SecondeStep: React.FC = () => {
+  const navigation = useNavigation();
+  const { colors } = useTheme();
 
   const handleGoBack = () => {
     navigation.goBack();
   };
-
-  const handleSecondStep = () => {
-    navigation.navigate("SignUpSecondStep");
-  };
-
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -54,24 +44,23 @@ export const FirstStep: React.FC = () => {
           <Title>Crie Sua{"\n"}conta</Title>
           <SubTitle>Faça seu cadastro de{"\n"}forma rápida e fácil.</SubTitle>
           <Form>
-            <FormTitle>1. Dados</FormTitle>
-            <Input iconName="user" placeholder="Nome" />
-            <Input
-              iconName="mail"
-              placeholder="E-mail"
+            <FormTitle>2. Senha</FormTitle>
+            <InputPassword
+              iconName="lock"
+              placeholder="Senha"
               keyboardType="email-address"
             />
-            <Input
-              iconName="credit-card"
-              placeholder="CNH"
+            <InputPassword
+              iconName="lock"
+              placeholder="Repetir senha"
               keyboardType="numeric"
             />
           </Form>
-          <Button title="Próximo" onPress={handleSecondStep} />
+          <Button title="Cadastrar" color={colors.success} />
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
 
-export default FirstStep;
+export default SecondeStep;
