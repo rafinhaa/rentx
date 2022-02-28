@@ -22,8 +22,14 @@ const SignIn: React.FC = () => {
         </SubTitle>
       </Header>
       <Form>
-        <Input />
-        <Input />
+        <Input
+          iconName="mail"
+          placeholder="E-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Input iconName="lock" />
       </Form>
       <Footer>
         <Button
