@@ -27,15 +27,20 @@ const Input: React.FC<InputProps> = ({ iconName, value, ...rest }) => {
   };
 
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container>
+      <IconContainer isFocused={isFocused}>
         <Feather
           name={iconName}
           size={24}
           color={isFocused || isFilled ? colors.main : colors.text_detail}
         />
       </IconContainer>
-      <InputText onFocus={handleFocus} onBlur={handleBlur} {...rest} />
+      <InputText
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        isFocused={isFocused}
+        {...rest}
+      />
     </Container>
   );
 };
