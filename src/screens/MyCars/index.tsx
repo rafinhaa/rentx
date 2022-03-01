@@ -6,15 +6,13 @@ import BackButton from "../../components/BackButton";
 import { CarDTO } from "../../dtos/CarDTO";
 import api from "../../services/api";
 import { useTheme } from "styled-components/native";
-import { AppRoutesParamList } from "../../routes/stack.routes";
+import { AppRoutesParamList } from "../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import LoaderAnimated from "../../components/LoaderAnimated";
 import { AntDesign } from "@expo/vector-icons";
 
-type MyCarsDetailsNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "MyCars"
->;
+type MyCarsDetailsNavigationProps =
+  NativeStackNavigationProp<AppRoutesParamList>;
 
 import {
   Container,

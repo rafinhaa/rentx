@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
-import { AppRoutesParamList } from "src/routes/stack.routes";
+import { AppRoutesParamList } from "src/routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import api from "../../../services/api";
 

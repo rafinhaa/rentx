@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BackButton from "../../components/BackButton";
 import { useTheme } from "styled-components";
 import ArrowSvg from "../../assets/arrow.svg";
 import { StatusBar } from "expo-status-bar";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { AppRoutesParamList } from "../../routes/stack.routes";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { AppRoutesParamList } from "../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { CarDTO } from "src/dtos/CarDTO";
 
 import Button from "../../components/Button";
 import {
@@ -30,16 +29,9 @@ import {
 } from "./styles";
 import { format } from "date-fns/esm";
 import { getPlataformDate } from "../../utils/getPlataformDate";
-import { Alert } from "react-native";
 
-interface Params {
-  car: CarDTO;
-}
-
-type SchedulingNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "Scheduling"
->;
+type SchedulingNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
+type ScreenParams = RouteProp<AppRoutesParamList, "Scheduling">;
 
 interface RentalPeriod {
   startFormatted: string;
@@ -49,7 +41,9 @@ interface RentalPeriod {
 const Scheduling: React.FC = () => {
   const theme = useTheme();
   const navigation = useNavigation<SchedulingNavigationProps>();
-  const { car } = useRoute().params as Params;
+  const {
+    params: { car },
+  } = useRoute<ScreenParams>();
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod
   );

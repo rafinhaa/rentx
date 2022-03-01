@@ -5,7 +5,7 @@ import { Dimensions } from "react-native";
 import BrandSvg from "../../assets/brand.svg";
 import LogoSvg from "../../assets/logo.svg";
 
-import { AppRoutesParamList } from "../../routes/stack.routes";
+import { AppRoutesParamList } from "../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import Animated, {
@@ -21,10 +21,7 @@ import { Container } from "./styles";
 
 const WIDTH = Dimensions.get("window").width;
 
-type SplashNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "Home"
->;
+type SplashNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
 const Splash: React.FC = () => {
   const splashAnimation = useSharedValue(0);
@@ -63,7 +60,7 @@ const Splash: React.FC = () => {
   });
 
   async function startApp() {
-    navigation.navigate("Home");
+    navigation.navigate("SignIn");
   }
 
   useEffect(() => {

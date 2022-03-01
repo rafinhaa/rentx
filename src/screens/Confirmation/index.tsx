@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar, useWindowDimensions } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { AppRoutesParamList } from "../../routes/stack.routes";
+import { AppRoutesParamList } from "../../routes/types";
 import ConfirmButton from "../../components/ConfirmButton";
 
 import LogoSvg from "../../assets/logo_background_gray.svg";
@@ -12,7 +12,7 @@ import { Container, Content, Title, Message, Footer } from "./styles";
 
 type navigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
-type ScreenParams = RouteProp<AppRoutesParamList, "SchedulingComplete">;
+type ScreenParams = RouteProp<AppRoutesParamList, "Confirmation">;
 
 const Confirmation: React.FC = () => {
   const { width } = useWindowDimensions();

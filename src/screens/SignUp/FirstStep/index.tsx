@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { AppRoutesParamList } from "../../../routes/stack.routes";
+import { AppRoutesParamList } from "../../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as Yup from "yup";
 

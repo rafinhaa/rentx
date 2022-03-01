@@ -3,9 +3,8 @@ import BackButton from "../../components/BackButton";
 import ImageSlider from "../../components/ImageSlider";
 import Accessory from "../../components/Accessory";
 import Button from "../../components/Button";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { CarDTO } from "../../dtos/CarDTO";
-import { AppRoutesParamList } from "../../routes/stack.routes";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { AppRoutesParamList } from "../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
 import { StatusBar, StyleSheet } from "react-native";
@@ -36,18 +35,15 @@ import {
   Footer,
 } from "./styles";
 
-interface Params {
-  car: CarDTO;
-}
+type CarDetailsNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
-type CarDetailsNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "Scheduling"
->;
+type ScreenParams = RouteProp<AppRoutesParamList, "CarDetails">;
 
 const CarDetails: React.FC = () => {
   const navigation = useNavigation<CarDetailsNavigationProps>();
-  const { car } = useRoute().params as Params;
+  const {
+    params: { car },
+  } = useRoute<ScreenParams>();
   const scrollY = useSharedValue(0);
   const { colors } = useTheme();
 

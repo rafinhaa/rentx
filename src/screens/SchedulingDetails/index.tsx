@@ -3,7 +3,7 @@ import BackButton from "../../components/BackButton";
 import ImageSlider from "../../components/ImageSlider";
 import Accessory from "../../components/Accessory";
 import Button from "../../components/Button";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 
 import { useTheme } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
@@ -33,9 +33,10 @@ import {
   RentalPriceTotal,
   RentalPriceQuota,
 } from "./styles";
+
 import { RFValue } from "react-native-responsive-fontsize";
 import { CarDTO } from "src/dtos/CarDTO";
-import { AppRoutesParamList } from "src/routes/stack.routes";
+import { AppRoutesParamList } from "src/routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect } from "react";
 import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
@@ -51,6 +52,7 @@ interface Params {
 
 type SchedulingDetailsNavigationProps =
   NativeStackNavigationProp<AppRoutesParamList>;
+type ScreenParams = RouteProp<AppRoutesParamList, "SchedulingDetails">;
 
 interface RentalPeriod {
   start: string;
@@ -62,9 +64,11 @@ const SchedulingDetails: React.FC = () => {
     {} as RentalPeriod
   );
   const theme = useTheme();
-  const { car, dates } = useRoute().params as Params;
+  const {
+    params: { car, dates },
+  } = useRoute<ScreenParams>();
   const navigation = useNavigation<SchedulingDetailsNavigationProps>();
-  const rentalTotal = Number(dates.length * car.rent.price);
+  const rentalTotal = Number(dates.length * car.price);
   const [loading, setLoading] = useState(false);
 
   async function handleConfirmRental() {
@@ -126,7 +130,7 @@ const SchedulingDetails: React.FC = () => {
         <BackButton onPress={handleGoBack} />
       </Header>
       <CarImages>
-        <ImageSlider imagesUrl={car.photos} />
+        <ImageSlider photos={car.photos} />
       </CarImages>
       <Content>
         <Details>
@@ -135,8 +139,8 @@ const SchedulingDetails: React.FC = () => {
             <Name>{car.name}</Name>
           </Description>
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Price>R$ {car.rent.price}</Price>
+            <Period>{car.period}</Period>
+            <Price>R$ {car.price}</Price>
           </Rent>
         </Details>
         <Accessories>
@@ -173,7 +177,7 @@ const SchedulingDetails: React.FC = () => {
         <RentalPrice>
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
           <RentalPriceDetails>
-            <RentalPriceQuota>{`R$ ${car.rent.price} x${dates.length} diárias`}</RentalPriceQuota>
+            <RentalPriceQuota>{`R$ ${car.price} x${dates.length} diárias`}</RentalPriceQuota>
             <RentalPriceTotal>R$ {rentalTotal}</RentalPriceTotal>
           </RentalPriceDetails>
         </RentalPrice>

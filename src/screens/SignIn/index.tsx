@@ -12,16 +12,13 @@ import Input from "../../components/Input";
 import InputPassword from "../../components/InputPassword";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
-import { AppRoutesParamList } from "../../routes/stack.routes";
+import { AppRoutesParamList } from "../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAuth } from "../../hooks/auth";
 
 import { Container, Header, Form, Title, SubTitle, Footer } from "./styles";
 
-type SignInNavigationProps = NativeStackNavigationProp<
-  AppRoutesParamList,
-  "SignUpFirstStep"
->;
+type SignInNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
 const SignIn: React.FC = () => {
   const { colors } = useTheme();
