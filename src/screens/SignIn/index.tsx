@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { AppRoutesParamList } from "../../routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useAuth } from "../../hooks/auth";
 
 import { Container, Header, Form, Title, SubTitle, Footer } from "./styles";
 
@@ -29,6 +30,8 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { signIn } = useAuth();
+
   const handleSignIn = async () => {
     try {
       const schema = Yup.object().shape({
@@ -38,6 +41,8 @@ const SignIn: React.FC = () => {
         password: Yup.string().required("A e-mail é obrigatório"),
       });
       await schema.validate({ email, password });
+
+      await signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert("Erro", error.message);
