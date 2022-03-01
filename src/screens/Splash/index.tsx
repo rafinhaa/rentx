@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { Dimensions } from "react-native";
 import BrandSvg from "../../assets/brand.svg";
 import LogoSvg from "../../assets/logo.svg";
 
@@ -18,8 +17,6 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { Container } from "./styles";
-
-const WIDTH = Dimensions.get("window").width;
 
 type SplashNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 
