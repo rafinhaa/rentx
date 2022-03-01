@@ -3,6 +3,7 @@ import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 import { AppRoutesParamList } from "src/routes/stack.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import api from "../../../services/api";
 
 import BackButton from "../../../components/BackButton";
 import Bullet from "../../../components/Bullet";
@@ -42,22 +43,33 @@ export const SecondeStep: React.FC = () => {
     navigation.goBack();
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!password || !confirmPassword) {
       return Alert.alert("Atenção", "Preencha todos os campos");
     }
     if (password !== confirmPassword) {
       return Alert.alert("Atenção", "As senhas não conferem");
     }
-    //TODO: Salvar usuário na api
 
-    navigation.navigate("Confirmation", {
-      screenProps: {
-        title: "Conta criada!",
-        message: `Agora é só fazer login\ne aproveitar`,
-        nextScreenRoute: "SignIn",
-      },
-    });
+    await api
+      .post("/users", {
+        name: user.name,
+        email: user.email,
+        password,
+        driver_license: user.cnh,
+      })
+      .then(() => {
+        navigation.navigate("Confirmation", {
+          screenProps: {
+            title: "Conta criada!",
+            message: `Agora é só fazer login\ne aproveitar`,
+            nextScreenRoute: "SignIn",
+          },
+        });
+      })
+      .catch(() => {
+        Alert.alert("Atenção", "Ocorreu um erro ao criar a conta");
+      });
   };
 
   return (
