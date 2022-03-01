@@ -101,7 +101,7 @@ const CarDetails: React.FC = () => {
         </Header>
         <CarImages>
           <Animated.View style={sliderCarsStyleAnimation}>
-            <ImageSlider imagesUrl={car.photos} />
+            <ImageSlider photos={car.photos} />
           </Animated.View>
         </CarImages>
       </Animated.View>
@@ -120,23 +120,19 @@ const CarDetails: React.FC = () => {
             <Name>{car.name}</Name>
           </Description>
           <Rent>
-            <Period>{car.rent.price}</Period>
-            <Price>R$ {car.rent.price}</Price>
+            <Period>{car.period}</Period>
+            <Price>R$ {car.price}</Price>
           </Rent>
         </Details>
         <Accessories>
-          {car.accessories.map((accessory, index) => (
+          {car.accessories.map((accessory) => (
             <Accessory
-              key={index}
+              key={accessory.id}
               name={accessory.name}
               icon={getAccessoryIcons(accessory.type)}
             />
           ))}
         </Accessories>
-        <About>{car.about}</About>
-        <About>{car.about}</About>
-        <About>{car.about}</About>
-        <About>{car.about}</About>
         <About>{car.about}</About>
       </Animated.ScrollView>
       <Footer>

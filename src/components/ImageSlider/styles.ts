@@ -1,6 +1,11 @@
 import styled from "styled-components/native";
 import { Dimensions, FlatList, FlatListProps } from "react-native";
 
+interface CarListProps {
+  id: string;
+  photo: string;
+}
+
 export const Container = styled.View`
   width: 100%;
 `;
@@ -24,7 +29,7 @@ export const CarImage = styled.Image`
 `;
 
 export const ImageCarList = styled(
-  FlatList as new (props: FlatListProps<string>) => FlatList<string>
+  FlatList as new (props: FlatListProps<CarListProps>) => FlatList<CarListProps>
 ).attrs({
   showsHorizontalScrollIndicator: false,
   horizontal: true,

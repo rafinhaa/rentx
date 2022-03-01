@@ -1,6 +1,5 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
-import GasolineSvg from "../../assets/gasoline.svg";
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
 
@@ -30,8 +29,8 @@ const Car: React.FC<Props> = ({ data, ...rest }) => {
         <Name>{data.name}</Name>
         <About>
           <Rent>
-            <Period>{data.rent.period}</Period>
-            <Price>{`R$ ${data.rent.price}`}</Price>
+            <Period>{data.period}</Period>
+            <Price>{`R$ ${data.price}`}</Price>
           </Rent>
           <Type>
             <MotorIcon />

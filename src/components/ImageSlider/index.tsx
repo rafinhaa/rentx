@@ -11,7 +11,10 @@ import {
 } from "./styles";
 
 interface Props {
-  imagesUrl: string[];
+  photos: {
+    id: string;
+    photo: string;
+  }[];
 }
 
 interface ChangeImageProps {
@@ -19,7 +22,7 @@ interface ChangeImageProps {
   changed: ViewToken[];
 }
 
-const ImageSlider: React.FC<Props> = ({ imagesUrl }) => {
+const ImageSlider: React.FC<Props> = ({ photos }) => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const indexChanged = useRef((info: ChangeImageProps) => {
@@ -30,16 +33,16 @@ const ImageSlider: React.FC<Props> = ({ imagesUrl }) => {
   return (
     <Container>
       <ImageIndexes>
-        {imagesUrl.map((_, index) => (
-          <Bullet key={index} active={index === imageIndex} />
+        {photos.map((item, index) => (
+          <Bullet key={item.id} active={index === imageIndex} />
         ))}
       </ImageIndexes>
       <ImageCarList
-        data={imagesUrl}
-        keyExtractor={(key) => key}
+        data={photos}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CarImageWrapper>
-            <CarImage source={{ uri: item }} resizeMode="contain" />
+            <CarImage source={{ uri: item.photo }} resizeMode="contain" />
           </CarImageWrapper>
         )}
         onViewableItemsChanged={indexChanged.current}
