@@ -49,6 +49,7 @@ cd rentx
 
 ```bash
 yarn install
+yarn postinstall
 ```
 
 #### Start fake API
