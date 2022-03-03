@@ -8,10 +8,12 @@ import { AppTabRoutes } from "./app.tab.routes";
 import { useAuth } from "../hooks/auth";
 
 const Routes: React.FC = () => {
-  const { user } = useAuth();
+  const {
+    user: { id },
+  } = useAuth();
   return (
     <NavigationContainer>
-      {user ? <AppTabRoutes /> : <AuthRoutes />}
+      {id ? <AppTabRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 };
