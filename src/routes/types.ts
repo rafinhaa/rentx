@@ -17,6 +17,7 @@ export type AppRoutesParamList = {
   };
   MyCars: undefined;
   SignIn: undefined;
+  Profile: undefined;
   SignUpFirstStep: undefined;
   SignUpSecondStep: {
     user: {

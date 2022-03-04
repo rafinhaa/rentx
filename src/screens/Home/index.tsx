@@ -26,18 +26,26 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
+    let isMounted = true;
     async function loadCars() {
       try {
         setLoading(true);
         const { data } = await api.get("/cars");
-        setCars(data);
+        if (isMounted) {
+          setCars(data);
+        }
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
     loadCars();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
