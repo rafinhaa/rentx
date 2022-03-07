@@ -38,7 +38,6 @@ const SignIn: React.FC = () => {
         password: Yup.string().required("A e-mail é obrigatório"),
       });
       await schema.validate({ email, password });
-
       await signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {

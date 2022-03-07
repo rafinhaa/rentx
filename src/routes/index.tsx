@@ -12,6 +12,7 @@ const Routes: React.FC = () => {
   const {
     user: { id },
   } = useAuth();
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>

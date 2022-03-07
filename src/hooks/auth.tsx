@@ -51,16 +51,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const userCollection = database.get<ModelUser>("users");
       await database.write(async () => {
         await userCollection.create((newUser) => {
-          newUser.id = user.id;
-          newUser.name = user.name;
-          newUser.email = user.email;
-          newUser.driver_license = user.driver_license;
-          newUser.avatar = user.avatar;
+          (newUser.user_id = user.id),
+            (newUser.name = user.name),
+            (newUser.email = user.email),
+            (newUser.driver_license = user.driver_license),
+            (newUser.avatar = user.avatar),
+            (newUser.token = token);
         });
       });
-
       setData({ ...user, token });
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   };
