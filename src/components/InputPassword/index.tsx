@@ -49,6 +49,7 @@ const InputPassword: React.FC<InputProps> = ({ iconName, value, ...rest }) => {
         onBlur={handleBlur}
         secureTextEntry={isPasswordVisible}
         isFocused={isFocused}
+        autoCorrect={false}
         {...rest}
       />
       <ChangePasswordVisibilityButton onPress={handlePasswordVisibilityChange}>
