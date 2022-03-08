@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useAuth } from "../../hooks/auth";
+import * as ImagePicker from "expo-image-picker";
+import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 
 import {
   Keyboard,
@@ -43,6 +45,10 @@ const Profile: React.FC = () => {
   const [option, setOption] = useState<OptionProps>({
     option: "dataEdit",
   } as OptionProps);
+  const [name, setName] = useState(user.name);
+  const [driverLicense, setDriverLicense] = useState(user.driver_license);
+  const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(user.avatar);
 
   const handleBack = () => {
     navigation.goBack();
@@ -56,6 +62,22 @@ const Profile: React.FC = () => {
     setOption(option);
   };
 
+  const handleSelectAvatar = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (result.cancelled) {
+      return;
+    }
+    const { uri } = result as ImageInfo;
+    if (uri) {
+      setAvatar(uri);
+    }
+  };
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -69,8 +91,8 @@ const Profile: React.FC = () => {
               </LogoutButton>
             </HeaderTop>
             <PhotoContainer>
-              <Photo source={{ uri: "https://github.com/rafinhaa.png" }} />
-              <PhotoButton onPress={() => {}}>
+              {!!avatar && <Photo source={{ uri: avatar }} />}
+              <PhotoButton onPress={handleSelectAvatar}>
                 <Feather name="camera" size={24} color={colors.shape} />
               </PhotoButton>
             </PhotoContainer>
@@ -101,6 +123,7 @@ const Profile: React.FC = () => {
                   placeholder="Nome"
                   autoCorrect={false}
                   defaultValue={user.name}
+                  onChangeText={setName}
                 />
                 <Input
                   iconName="mail"
@@ -112,6 +135,7 @@ const Profile: React.FC = () => {
                   placeholder="CNH"
                   keyboardType="numeric"
                   defaultValue={user.driver_license}
+                  onChangeText={setDriverLicense}
                 />
               </Section>
             ) : (
