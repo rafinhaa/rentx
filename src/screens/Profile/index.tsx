@@ -41,7 +41,7 @@ interface OptionProps {
 const Profile: React.FC = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [option, setOption] = useState<OptionProps>({
     option: "dataEdit",
   } as OptionProps);
@@ -55,7 +55,11 @@ const Profile: React.FC = () => {
   };
 
   const handleSignOut = () => {
-    console.log("Sign out");
+    try {
+      signOut();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleOptionsChange = (option: OptionProps) => {
