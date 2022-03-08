@@ -59,7 +59,22 @@ const Profile: React.FC = () => {
 
   const handleSignOut = () => {
     try {
-      signOut();
+      Alert.alert(
+        "Deseja realmente sair?",
+        "Se você sair, irá precisar fazer login novamente usando a internet.",
+        [
+          {
+            text: "Cancelar",
+            onPress: () => {},
+            style: "cancel",
+          },
+          {
+            text: "Sair",
+            onPress: signOut,
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
       console.log(error);
     }
