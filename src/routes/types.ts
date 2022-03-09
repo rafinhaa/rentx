@@ -1,8 +1,9 @@
 import { CarDTO } from "../dtos/CarDTO";
+import { Car as ModelCar } from "../database/models/Car";
 
 export type AppRoutesParamList = {
   Home: undefined;
-  CarDetails: { car: CarDTO };
+  CarDetails: { car: ModelCar };
   Scheduling: { car: CarDTO };
   SchedulingDetails: {
     car: CarDTO;
