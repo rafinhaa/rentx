@@ -38,7 +38,16 @@ Foi criado um loader com o Lottie e animações com AnimatedReactNative.
 
 ## 🏁 Run
 
-#### Clone the repository
+#### Clone the backend repository, install and start
+
+```bash
+git clone https://github.com/rafinhaa/rentx
+cd rentx
+yarn install
+yarn start
+```
+
+#### Clone the app repository
 
 ```bash
 git clone https://github.com/rafinhaa/rentx
@@ -49,13 +58,6 @@ cd rentx
 
 ```bash
 yarn install
-yarn postinstall
-```
-
-#### Start fake API
-
-```bash
-yarn server
 ```
 
 #### Start project
@@ -70,10 +72,18 @@ yarn run ios
 
 Operating system: macOS 12.1 (Chip M1)
 
-⚠️ Caso o projeto não mostre os produtos, rode antes de iniciar o jsonserver:
+⚠️ Caso o projeto não mostre os produtos:
 
 ```bash
 adb reverse tcp:3333 tcp:3333
+```
+
+### Change the url of the server
+
+```sh
+vim src/services/api.ts
+#baseURL: "http://<YOUR_IP_HERE>:3333",
+
 ```
 
 ## 📄 Changelog
