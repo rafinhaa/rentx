@@ -1,9 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import BackButton from "../../components/BackButton";
-import { CarDTO } from "../../dtos/CarDTO";
 import api from "../../services/api";
 import { useTheme } from "styled-components/native";
 import { AppRoutesParamList } from "../../routes/types";
@@ -34,14 +33,6 @@ import {
   CarFooterDate,
 } from "./styles";
 
-export interface MyCarsProps {
-  id: string;
-  user_id: string;
-  car: CarDTO;
-  startDate: string;
-  endDate: string;
-}
-
 export interface DataProps {
   id: string;
   car: ModelCar;
@@ -54,6 +45,7 @@ const MyCars: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation<MyCarsDetailsNavigationProps>();
   const theme = useTheme();
+  const screenIsFocused = useIsFocused();
 
   function goBack() {
     navigation.goBack();
@@ -81,7 +73,7 @@ const MyCars: React.FC = () => {
       }
     }
     loadCars();
-  }, []);
+  }, [screenIsFocused]);
   return (
     <Container>
       <Header>
