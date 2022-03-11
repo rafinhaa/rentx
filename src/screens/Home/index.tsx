@@ -42,7 +42,6 @@ const Home: React.FC = () => {
       }, // vai no backend busca por atualizações
       pushChanges: async ({ changes }) => {
         const { users } = changes;
-        console.warn(users);
         if (users.updated.length > 0) {
           await api.post("/users/sync", users);
         }

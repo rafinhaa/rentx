@@ -1,6 +1,6 @@
-import { TableSchema } from "@nozbe/watermelondb";
+import { tableSchema } from "@nozbe/watermelondb";
 
-const carSchema: TableSchema = {
+const carSchema = tableSchema({
   name: "cars",
   columns: [
     {
@@ -32,6 +32,6 @@ const carSchema: TableSchema = {
       type: "string",
     },
   ],
-};
+});
 
 export { carSchema };
