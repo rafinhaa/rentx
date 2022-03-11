@@ -10,6 +10,9 @@ import { AppRoutesParamList } from "../../routes/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import LoaderAnimated from "../../components/LoaderAnimated";
 import { AntDesign } from "@expo/vector-icons";
+import { Car as ModelCar } from "../../database/models/Car";
+import Car from "../../components/Car";
+import { format, parseISO } from "date-fns";
 
 type MyCarsDetailsNavigationProps =
   NativeStackNavigationProp<AppRoutesParamList>;
@@ -30,7 +33,6 @@ import {
   CarFooterPeriod,
   CarFooterDate,
 } from "./styles";
-import Car from "../../components/Car";
 
 export interface MyCarsProps {
   id: string;
@@ -40,8 +42,15 @@ export interface MyCarsProps {
   endDate: string;
 }
 
+export interface DataProps {
+  id: string;
+  car: ModelCar;
+  start_date: string;
+  end_date: string;
+}
+
 const MyCars: React.FC = () => {
-  const [cars, setCars] = useState<MyCarsProps[]>([]);
+  const [cars, setCars] = useState<DataProps[]>([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation<MyCarsDetailsNavigationProps>();
   const theme = useTheme();
@@ -54,11 +63,16 @@ const MyCars: React.FC = () => {
     async function loadCars() {
       setLoading(true);
       try {
-        const { data } = await api.get<MyCarsProps[]>(
-          "/schedules_byuser/?user_id=1"
-        );
-        setCars(data);
-        console.log(cars);
+        const { data } = await api.get<DataProps[]>("/rentals");
+        const dataFormatted = data.map((data: DataProps) => {
+          return {
+            id: data.id,
+            car: data.car,
+            start_date: format(parseISO(data.start_date), "dd/MM/yyyy"),
+            end_date: format(parseISO(data.end_date), "dd/MM/yyyy"),
+          };
+        });
+        setCars(dataFormatted);
       } catch (error) {
         Alert.alert("Erro ao carregar os carros");
         console.log(error);
@@ -96,14 +110,14 @@ const MyCars: React.FC = () => {
                 <CarFooter>
                   <CarFooterTitle>Período</CarFooterTitle>
                   <CarFooterPeriod>
-                    <CarFooterDate>{item.startDate}</CarFooterDate>
+                    <CarFooterDate>{item.start_date}</CarFooterDate>
                     <AntDesign
                       name="arrowright"
                       size={24}
                       color={theme.colors.text}
                       style={{ marginHorizontal: 10 }}
                     />
-                    <CarFooterDate>{item.endDate}</CarFooterDate>
+                    <CarFooterDate>{item.end_date}</CarFooterDate>
                   </CarFooterPeriod>
                 </CarFooter>
               </CarWrapper>

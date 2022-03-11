@@ -2,7 +2,7 @@ import { FlatList, FlatListProps } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
-import { MyCarsProps } from "./";
+import { DataProps } from "./";
 
 export const Container = styled.View`
   flex: 1;
@@ -60,7 +60,7 @@ export const AppointmentsQuantity = styled.Text`
 `;
 
 export const CarsList = styled(
-  FlatList as new (props: FlatListProps<MyCarsProps>) => FlatList<MyCarsProps>
+  FlatList as new (props: FlatListProps<DataProps>) => FlatList<DataProps>
 ).attrs({
   showsVerticalScrollIndicator: false,
 })``;
