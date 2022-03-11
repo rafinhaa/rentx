@@ -28,7 +28,7 @@ import {
   Footer,
 } from "./styles";
 import { format } from "date-fns/esm";
-import { getPlataformDate } from "../../utils/getPlataformDate";
+import { getPlatformDate } from "../../utils/getPlatformDate";
 
 type SchedulingNavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
 type ScreenParams = RouteProp<AppRoutesParamList, "Scheduling">;
@@ -77,10 +77,10 @@ const Scheduling: React.FC = () => {
     const endDate = Object.keys(interval)[Object.keys(interval).length - 1];
     setRentalPeriod({
       startFormatted: format(
-        getPlataformDate(new Date(firstDate)),
+        getPlatformDate(new Date(firstDate)),
         "dd/MM/yyyy"
       ),
-      endFormatted: format(getPlataformDate(new Date(endDate)), "dd/MM/yyyy"),
+      endFormatted: format(getPlatformDate(new Date(endDate)), "dd/MM/yyyy"),
     });
   }
 

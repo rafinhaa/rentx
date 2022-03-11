@@ -41,7 +41,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect } from "react";
 import { getAccessoryIcons } from "../../utils/getAccessoryIcons";
 import { format } from "date-fns";
-import { getPlataformDate } from "../../utils/getPlataformDate";
+import { getPlatformDate } from "../../utils/getPlatformDate";
 import api from "../../services/api";
 import { Alert } from "react-native";
 import { useNetInfo } from "@react-native-community/netinfo";
@@ -115,9 +115,9 @@ const SchedulingDetails: React.FC = () => {
 
   useEffect(() => {
     setRentalPeriod({
-      start: format(getPlataformDate(new Date(dates[0])), "dd/MM/yyyy"),
+      start: format(getPlatformDate(new Date(dates[0])), "dd/MM/yyyy"),
       end: format(
-        getPlataformDate(new Date(dates[dates.length - 1])),
+        getPlatformDate(new Date(dates[dates.length - 1])),
         "dd/MM/yyyy"
       ),
     });
