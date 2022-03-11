@@ -82,7 +82,7 @@ const CarDetails: React.FC = () => {
   });
 
   function handleConfirmRental() {
-    //navigation.navigate("Scheduling", { car });
+    navigation.navigate("Scheduling", { car });
   }
 
   function handleBack() {

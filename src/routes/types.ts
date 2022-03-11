@@ -4,9 +4,9 @@ import { Car as ModelCar } from "../database/models/Car";
 export type AppRoutesParamList = {
   Home: undefined;
   CarDetails: { car: ModelCar };
-  Scheduling: { car: CarDTO };
+  Scheduling: { car: ModelCar };
   SchedulingDetails: {
-    car: CarDTO;
+    car: ModelCar;
     dates: string[];
   };
   Confirmation: {
