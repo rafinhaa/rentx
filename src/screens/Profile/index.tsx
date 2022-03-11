@@ -15,6 +15,7 @@ import {
 
 import { useTheme } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 import BackButton from "../../components/BackButton";
 import Input from "../../components/Input";
@@ -52,6 +53,7 @@ const Profile: React.FC = () => {
   const [driverLicense, setDriverLicense] = useState(user.driver_license);
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(user.avatar);
+  const netinfo = useNetInfo();
 
   const handleBack = () => {
     navigation.goBack();
@@ -81,7 +83,22 @@ const Profile: React.FC = () => {
   };
 
   const handleOptionsChange = (option: OptionProps) => {
-    setOption(option);
+    if (netinfo.isConnected === false && option.option === "passwordEdit") {
+      Alert.alert(
+        "Sem conexão com a internet",
+        "Você precisa estar conectado para alterar sua senha.",
+        [
+          {
+            text: "Ok",
+            onPress: () => {},
+            style: "cancel",
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      setOption(option);
+    }
   };
 
   const handleSelectAvatar = async () => {
